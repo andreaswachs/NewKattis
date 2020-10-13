@@ -7,7 +7,7 @@ import requests
 
 # Declare some variables
 kattis_dir = Path('/Users/andreas/Google Drev/Programming/Kattis')
-script_dir = Path('.')
+script_dir = Path('/Users/andreas/Google Drev/Programming/Python/NewKattis')
 
 # Get the name of the problem, used for creating the correct directory
 problem_url = sg.popup_get_text('Insert problem URL', 'What is the URL for the problem?')
@@ -25,8 +25,8 @@ if problem_url is not None and len(problem_url) > 0:
         # We're golden! Lets go make some Kattis setups!
     
         # First make sure there is a template for the programming language!
-        for file in script_dir.glob('*'):
-            if str(file) == template_file:
+        for file in script_dir.glob('*.template'):
+            if str(file).split('/')[-1] == template_file:
                 
                 # Get the problem name from the website
                 with requests.get(problem_url) as page:
@@ -61,7 +61,7 @@ if problem_url is not None and len(problem_url) > 0:
 
                     # Start to work with both the name of the file, but also the class name
                     class_name = title
-                    numbers = {'1' : 'One', '2' : 'Two', '3': 'Three', '4': 'Four',
+                    numbers = {'0': 'Zero', '1' : 'One', '2' : 'Two', '3': 'Three', '4': 'Four',
                                 '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight',
                                 '9': 'Nine'}
 
@@ -77,6 +77,6 @@ if problem_url is not None and len(problem_url) > 0:
                             file_out.write(file_in.read().replace('[0]', class_name))
                     
     else:
-        sg.popup(title='Error with programming language! Either none was given, or the programming language is too short!')
+        sg.popup('Error', 'Error with programming language! Either none was given, or the programming language is too short!')
 else:
-    sg.popup(title='Error with problem URL! Not set or not long enough ')
+    sg.popup('Error', 'Error with problem URL! Not set or not long enough ')
