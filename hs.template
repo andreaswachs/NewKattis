@@ -5,6 +5,6 @@
 -- brug :set +s i GHCI for execution times
 
 main = do
-    input = getLine
+    input <- getLine
     return 0
 

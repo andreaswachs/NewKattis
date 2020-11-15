@@ -67,14 +67,14 @@ if problem_url is not None and len(problem_url) > 0:
 
                     for k, v in numbers.items():
                         class_name = class_name.replace(k, v)
-
+                    template.replace('python', 'py')
                     class_name = class_name.replace(' ', '').replace('-', '')
                     file_name = class_name  + '.' + template
 
                     # Copy the file over, substituting the changes into the template
                     with open(script_dir / template_file, 'r') as file_in:
                         with open(problem_dir / file_name, 'w') as file_out:
-                            file_out.write(file_in.read().replace('[0]', class_name))
+                            file_out.write(file_in.read().replace('#CLASSNAME#', class_name))
                     
     else:
         sg.popup('Error', 'Error with programming language! Either none was given, or the programming language is too short!')
